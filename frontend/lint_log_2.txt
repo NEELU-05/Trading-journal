@@ -1,0 +1,164 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+C:\Users\neelo\OneDrive\Desktop\CODES\pm\JOURNAL\frontend\src\components\JournalTable.jsx
+   28:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  26 |
+  27 |     useEffect(() => {
+> 28 |         fetchTrades();
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  29 |     }, [sortConfig]);
+  30 |
+  31 |     const handleSort = (key) => {                                                                                                                                                                                                                                                                                                                                                                react-hooks/set-state-in-effect
+   29:8   warning  React Hook useEffect has a missing dependency: 'fetchTrades'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 react-hooks/exhaustive-deps
+   85:39  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  83 |                         <tr>
+  84 |                             <th onClick={() => handleSort('datetime')}>
+> 85 |                                 Date <SortIcon columnKey="datetime" />
+     |                                       ^^^^^^^^ This component is created during render
+  86 |                             </th>
+  87 |                             <th>Symbol</th>
+  88 |                             <th>TF</th>
+
+  49 |     };
+  50 |
+> 51 |     const SortIcon = ({ columnKey }) => {
+     |                      ^^^^^^^^^^^^^^^^^^^^
+> 52 |         if (sortConfig.key !== columnKey) return <span className="text-gray-500">Γåò</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |         return sortConfig.order === 'asc' ? <span>Γåæ</span> : <span>Γåô</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |     };
+     | ^^^^^^ The component is created during render here
+  55 |
+  56 |     if (loading) {
+  57 |         return (                                         react-hooks/static-components
+   91:40  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  89 |                             <th>Dir</th>
+  90 |                             <th onClick={() => handleSort('setup_name')}>
+> 91 |                                 Setup <SortIcon columnKey="setup_name" />
+     |                                        ^^^^^^^^ This component is created during render
+  92 |                             </th>
+  93 |                             <th>Entry</th>
+  94 |                             <th>Exit</th>
+
+  49 |     };
+  50 |
+> 51 |     const SortIcon = ({ columnKey }) => {
+     |                      ^^^^^^^^^^^^^^^^^^^^
+> 52 |         if (sortConfig.key !== columnKey) return <span className="text-gray-500">Γåò</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |         return sortConfig.order === 'asc' ? <span>Γåæ</span> : <span>Γåô</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |     };
+     | ^^^^^^ The component is created during render here
+  55 |
+  56 |     if (loading) {
+  57 |         return (                      react-hooks/static-components
+   96:36  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+  94 |                             <th>Exit</th>
+  95 |                             <th onClick={() => handleSort('r_multiple')}>
+> 96 |                                 R <SortIcon columnKey="r_multiple" />
+     |                                    ^^^^^^^^ This component is created during render
+  97 |                             </th>
+  98 |                             <th>P&L</th>
+  99 |                             <th onClick={() => handleSort('outcome')}>
+
+  49 |     };
+  50 |
+> 51 |     const SortIcon = ({ columnKey }) => {
+     |                      ^^^^^^^^^^^^^^^^^^^^
+> 52 |         if (sortConfig.key !== columnKey) return <span className="text-gray-500">Γåò</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |         return sortConfig.order === 'asc' ? <span>Γåæ</span> : <span>Γåô</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |     };
+     | ^^^^^^ The component is created during render here
+  55 |
+  56 |     if (loading) {
+  57 |         return (  react-hooks/static-components
+  100:42  error    Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+   98 |                             <th>P&L</th>
+   99 |                             <th onClick={() => handleSort('outcome')}>
+> 100 |                                 Outcome <SortIcon columnKey="outcome" />
+      |                                          ^^^^^^^^ This component is created during render
+  101 |                             </th>
+  102 |                             <th>HTF Trend</th>
+  103 |                             <th>Rules</th>
+
+  49 |     };
+  50 |
+> 51 |     const SortIcon = ({ columnKey }) => {
+     |                      ^^^^^^^^^^^^^^^^^^^^
+> 52 |         if (sortConfig.key !== columnKey) return <span className="text-gray-500">Γåò</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 53 |         return sortConfig.order === 'asc' ? <span>Γåæ</span> : <span>Γåô</span>;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 54 |     };
+     | ^^^^^^ The component is created during render here
+  55 |
+  56 |     if (loading) {
+  57 |         return (            react-hooks/static-components
+
+C:\Users\neelo\OneDrive\Desktop\CODES\pm\JOURNAL\frontend\src\components\StatsPanel.jsx
+  28:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  26 |
+  27 |     useEffect(() => {
+> 28 |         fetchStats();
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  29 |     }, []);
+  30 |
+  31 |     if (loading) {  react-hooks/set-state-in-effect
+
+C:\Users\neelo\OneDrive\Desktop\CODES\pm\JOURNAL\frontend\src\components\TradeForm.jsx
+   4:5   error  'calculateRMultiple' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              no-unused-vars
+   5:5   error  'calculatePnL' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    no-unused-vars
+   6:5   error  'calculateRR' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     no-unused-vars
+   7:5   error  'determineOutcome' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                no-unused-vars
+  47:30  error  'setCalculatedValues' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    no-unused-vars
+  68:9   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+  66 |
+  67 |     useEffect(() => {
+> 68 |         fetchSetups();
+     |         ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  69 |     }, []);
+  70 |
+  71 |     const handleChange = (e) => {  react-hooks/set-state-in-effect
+
+Γ£û 13 problems (12 errors, 1 warning)
+

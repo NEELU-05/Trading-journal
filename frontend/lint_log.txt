@@ -1,0 +1,111 @@
+
+> frontend@0.0.0 lint
+> eslint .
+
+
+C:\Users\neelo\OneDrive\Desktop\CODES\pm\JOURNAL\frontend\src\components\Dashboard.jsx
+  1:27  error  'useRef' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+C:\Users\neelo\OneDrive\Desktop\CODES\pm\JOURNAL\frontend\src\components\JournalTable.jsx
+  11:9  error    Error: Cannot access variable before it is declared
+
+`fetchTrades` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+   9 |
+  10 |     useEffect(() => {
+> 11 |         fetchTrades();
+     |         ^^^^^^^^^^^ `fetchTrades` accessed before it is declared
+  12 |     }, [sortConfig]);
+  13 |
+  14 |     const fetchTrades = async () => {
+
+  12 |     }, [sortConfig]);
+  13 |
+> 14 |     const fetchTrades = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 15 |         try {
+     | ^^^^^^^^^^^^^
+> 16 |             const response = await axios.get('/api/trades', {
+     ΓÇª
+     | ^^^^^^^^^^^^^
+> 27 |         }
+     | ^^^^^^^^^^^^^
+> 28 |     };
+     | ^^^^^^^ `fetchTrades` is declared here
+  29 |
+  30 |     const handleSort = (key) => {
+  31 |         setSortConfig(prev => ({  react-hooks/immutability
+  12:8  warning  React Hook useEffect has a missing dependency: 'fetchTrades'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            react-hooks/exhaustive-deps
+
+C:\Users\neelo\OneDrive\Desktop\CODES\pm\JOURNAL\frontend\src\components\StatsPanel.jsx
+   3:10  error  'formatCurrency' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                no-unused-vars
+  16:9   error  Error: Cannot access variable before it is declared
+
+`fetchStats` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+  14 |
+  15 |     useEffect(() => {
+> 16 |         fetchStats();
+     |         ^^^^^^^^^^ `fetchStats` accessed before it is declared
+  17 |     }, []);
+  18 |
+  19 |     const fetchStats = async () => {
+
+  17 |     }, []);
+  18 |
+> 19 |     const fetchStats = async () => {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 20 |         try {
+     | ^^^^^^^^^^^^^
+> 21 |             const response = await axios.get('/api/trades/api/stats');
+     | ^^^^^^^^^^^^^
+> 22 |             setStats(response.data);
+     | ^^^^^^^^^^^^^
+> 23 |             setLoading(false);
+     | ^^^^^^^^^^^^^
+> 24 |         } catch (error) {
+     | ^^^^^^^^^^^^^
+> 25 |             console.error('Error fetching stats:', error);
+     | ^^^^^^^^^^^^^
+> 26 |             setLoading(false);
+     | ^^^^^^^^^^^^^
+> 27 |         }
+     | ^^^^^^^^^^^^^
+> 28 |     };
+     | ^^^^^^^ `fetchStats` is declared here
+  29 |
+  30 |     // Refresh stats when called from parent
+  31 |     React.useImperativeHandle(React.useRef(), () => ({  react-hooks/immutability
+
+C:\Users\neelo\OneDrive\Desktop\CODES\pm\JOURNAL\frontend\src\components\TradeForm.jsx
+  55:9  error  Error: Cannot access variable before it is declared
+
+`fetchSetups` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+  53 |
+  54 |     useEffect(() => {
+> 55 |         fetchSetups();
+     |         ^^^^^^^^^^^ `fetchSetups` accessed before it is declared
+  56 |     }, []);
+  57 |
+  58 |     useEffect(() => {
+
+   88 |     }, [formData.exit_price, formData.entry_price, formData.stop_loss, formData.take_profit, formData.position_size, formData.direction]);
+   89 |
+>  90 |     const fetchSetups = async () => {
+      |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>  91 |         try {
+      | ^^^^^^^^^^^^^
+>  92 |             const response = await axios.get('/api/trades/api/setups');
+      ΓÇª
+      | ^^^^^^^^^^^^^
+>  99 |         }
+      | ^^^^^^^^^^^^^
+> 100 |     };
+      | ^^^^^^^ `fetchSetups` is declared here
+  101 |
+  102 |     const handleChange = (e) => {
+  103 |         const { name, value, type, checked } = e.target;  react-hooks/immutability
+
+Γ£û 6 problems (5 errors, 1 warning)
+

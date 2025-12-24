@@ -1,0 +1,28 @@
+{
+  "name": "trading-journal-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Trading Journal Assistant",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "cd ../frontend && npm install && npm run build",
+    "postinstall": "npm run build"
+  },
+  "keywords": [
+    "trading",
+    "journal",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "sqlite3": "^5.1.6",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

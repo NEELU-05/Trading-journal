@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0f172a;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Trader-focused minimal styles */
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded transition-colors;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded transition-colors;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded text-white focus:outline-none focus:border-blue-500 transition-colors;
+  }
+
+  .select-field {
+    @apply w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded text-white focus:outline-none focus:border-blue-500 transition-colors;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-gray-300 mb-1;
+  }
+
+  .card {
+    @apply bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-700;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-white mb-4 pb-2 border-b border-slate-700;
+  }
+
+  /* Table styles */
+  .trade-table {
+    @apply w-full text-sm text-left;
+  }
+
+  .trade-table thead {
+    @apply text-xs uppercase bg-slate-700 text-gray-300;
+  }
+
+  .trade-table th {
+    @apply px-4 py-3 cursor-pointer hover:bg-slate-600 transition-colors;
+  }
+
+  .trade-table td {
+    @apply px-4 py-3 border-b border-slate-700;
+  }
+
+  .trade-table tbody tr {
+    @apply hover:bg-slate-700 transition-colors;
+  }
+
+  .trade-table tbody tr.flagged {
+    @apply bg-red-900/20 border-l-4 border-flag-red;
+  }
+
+  /* Form section spacing */
+  .form-section {
+    @apply mb-6 pb-6 border-b border-slate-700 last:border-b-0;
+  }
+
+  .form-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+  }
+
+  .form-grid-3 {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+  }
+}
