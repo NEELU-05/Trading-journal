@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Papa from 'papaparse';
+import * as XLSX from 'xlsx';
 import axios from 'axios';
 import { X, Upload, AlertCircle, Check, ArrowRight, Save, Copy } from 'lucide-react';
 
@@ -101,17 +102,41 @@ const CsvImportModal = ({ isOpen, onClose, onImport }) => { // Removed setups pr
 
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];
-        Papa.parse(file, {
-            header: true,
-            skipEmptyLines: true,
-            complete: (results) => {
-                setRawRows(results.data);
-                processInitialData(results.data);
-            },
-        });
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (fileExtension === 'csv') {
+            // Handle CSV
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: (results) => {
+                    setRawRows(results.data);
+                    processInitialData(results.data);
+                },
+            });
+        } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
+            // Handle Excel
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+                setRawRows(jsonData);
+                processInitialData(jsonData);
+            };
+            reader.readAsArrayBuffer(file);
+        }
     }, [processInitialData, setRawRows]);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: { 'text/csv': ['.csv'] } });
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        accept: {
+            'text/csv': ['.csv'],
+            'application/vnd.ms-excel': ['.xls'],
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': ['.xlsx']
+        }
+    });
 
     const handleFixChange = (key, value) => {
         setCurrentTradeData(prev => ({ ...prev, [key]: value }));
@@ -188,7 +213,7 @@ const CsvImportModal = ({ isOpen, onClose, onImport }) => { // Removed setups pr
                             Import Trades via CSV
                         </h2>
                         <p className="text-slate-400 text-sm mt-1">
-                            {step === 'upload' && "Upload a generic broker export CSV"}
+                            {step === 'upload' && "Upload CSV or Excel file"}
                             {step === 'fixing' && `Reviewing Trade ${currentFixIndex + 1} of ${processedTrades.length}`}
                             {step === 'review' && "Ready to Import"}
                         </p>
@@ -206,8 +231,8 @@ const CsvImportModal = ({ isOpen, onClose, onImport }) => { // Removed setups pr
                 ${isDragActive ? 'border-blue-500 bg-blue-500/10' : 'border-slate-700 hover:border-slate-500 hover:bg-slate-800/50'}`}>
                             <input {...getInputProps()} />
                             <Upload className={`w-12 h-12 mb-4 ${isDragActive ? 'text-blue-400' : 'text-slate-500'}`} />
-                            <p className="text-lg font-medium text-slate-300">Drag & drop CSV here, or click to select</p>
-                            <p className="text-sm text-slate-500 mt-2">Supports generic broker exports</p>
+                            <p className="text-lg font-medium text-slate-300">Drag & drop CSV or Excel here, or click to select</p>
+                            <p className="text-sm text-slate-500 mt-2">Supports .csv, .xlsx, .xls files</p>
                         </div>
                     )}
 
