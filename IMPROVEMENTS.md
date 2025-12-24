@@ -28,6 +28,7 @@ This document tracks the enhancements, bug fixes, and architectural improvements
     *   **Env Vars**: preset `NODE_ENV` to `production`.
 *   **Deployment Documentation**: Created `DEPLOY.md` with step-by-step instructions for deploying to Render, including Git setup and troubleshooting.
 *   **Local Production Testing**: Updated scripts to support Windows PowerShell syntax (`$env:NODE_ENV = 'production'`).
+*   **Fix Build Failure**: Updated build script to explicitly install dev dependencies (`npm install --include=dev`) for frontend, resolving `vite: not found` error caused by `NODE_ENV=production` on Render.
 
 ### 3. Backend & Database
 *   **Database Resilience**: Added warning documentation about SQLite ephemeral storage on Render's free tier.
