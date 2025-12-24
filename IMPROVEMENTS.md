@@ -46,6 +46,7 @@ This document tracks the enhancements, bug fixes, and architectural improvements
 
 1.  **Data Persistence**:
     *   (Completed) Migrate to PostgreSQL support.
+    *   (Completed) Implement "Import CSV" feature with generic broker export support and interactive data validation wizard.
     *   Implement "Export to JSON/CSV" feature for manual local backups.
 
 2.  **Authentication**:
