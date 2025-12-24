@@ -101,6 +101,7 @@ function JournalTable({ onRefresh }) {
                             <th>HTF Trend</th>
                             <th>Rules</th>
                             <th>SL Moved</th>
+                            <th>Tags</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -149,6 +150,15 @@ function JournalTable({ onRefresh }) {
                                     <span className={trade.sl_moved ? 'text-flag-red' : 'text-gray-400'}>
                                         {trade.sl_moved ? 'Yes' : 'No'}
                                     </span>
+                                </td>
+                                <td>
+                                    <div className="flex flex-wrap gap-1 max-w-[150px]">
+                                        {trade.tags && trade.tags.map(tag => (
+                                            <span key={tag} className="text-[10px] bg-slate-700 px-1.5 py-0.5 rounded text-gray-300">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </td>
                                 <td>
                                     <button

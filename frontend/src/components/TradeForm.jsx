@@ -41,10 +41,11 @@ function TradeForm({ onClose, onSubmit }) {
         // Section 6: Discipline
         followed_rules: true,
         biggest_mistake: '',
-        would_take_again: true
+        would_take_again: true,
+        tags: [] // Array of strings
     });
 
-
+    const [tagInput, setTagInput] = useState('');
 
 
 
@@ -73,6 +74,24 @@ function TradeForm({ onClose, onSubmit }) {
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    const handleTagKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ',') {
+            e.preventDefault();
+            const tag = tagInput.trim().toUpperCase();
+            if (tag && !formData.tags.includes(tag)) {
+                setFormData(prev => ({ ...prev, tags: [...prev.tags, tag] }));
+                setTagInput('');
+            }
+        }
+    };
+
+    const removeTag = (tagToRemove) => {
+        setFormData(prev => ({
+            ...prev,
+            tags: prev.tags.filter(tag => tag !== tagToRemove)
         }));
     };
 
@@ -469,7 +488,7 @@ function TradeForm({ onClose, onSubmit }) {
 
                 {/* SECTION 6: Discipline */}
                 <div className="form-section">
-                    <h3 className="section-title">Discipline</h3>
+                    <h3 className="section-title">Discipline & Psychology</h3>
                     <div className="form-grid">
                         <div>
                             <label className="label">Followed rules?</label>
@@ -495,6 +514,26 @@ function TradeForm({ onClose, onSubmit }) {
                                 <option value={true}>Yes</option>
                                 <option value={false}>No</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div className="mt-4">
+                        <label className="label">Tags (e.g., FOMO, REVENGE, A+)</label>
+                        <div className="flex flex-wrap gap-2 mb-2 p-2 bg-slate-800/50 rounded-lg min-h-[42px] border border-slate-700">
+                            {formData.tags.map(tag => (
+                                <span key={tag} className="bg-blue-600 text-white px-2 py-1 rounded text-sm flex items-center gap-1">
+                                    {tag}
+                                    <button type="button" onClick={() => removeTag(tag)} className="hover:text-red-300">×</button>
+                                </span>
+                            ))}
+                            <input
+                                type="text"
+                                value={tagInput}
+                                onChange={(e) => setTagInput(e.target.value)}
+                                onKeyDown={handleTagKeyDown}
+                                className="bg-transparent outline-none text-white flex-1 min-w-[60px]"
+                                placeholder={formData.tags.length === 0 ? "Type and press Enter..." : ""}
+                            />
                         </div>
                     </div>
 

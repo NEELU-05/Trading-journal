@@ -60,7 +60,8 @@ router.get('/', (req, res) => {
         // Parse confirmations JSON string back to array
         const trades = rows.map(row => ({
             ...row,
-            confirmations: JSON.parse(row.confirmations || '[]')
+            confirmations: JSON.parse(row.confirmations || '[]'),
+            tags: JSON.parse(row.tags || '[]')
         }));
 
         res.json(trades);
@@ -81,7 +82,8 @@ router.get('/:id', (req, res) => {
 
         const trade = {
             ...row,
-            confirmations: JSON.parse(row.confirmations || '[]')
+            confirmations: JSON.parse(row.confirmations || '[]'),
+            tags: JSON.parse(row.tags || '[]')
         };
 
         res.json(trade);
@@ -109,7 +111,8 @@ router.post('/', (req, res) => {
         exit_price,
         followed_rules,
         biggest_mistake,
-        would_take_again
+        would_take_again,
+        tags
     } = req.body;
 
     // Calculate P&L and R-Multiple if exit price is provided
@@ -140,8 +143,8 @@ router.post('/', (req, res) => {
       symbol, timeframe, direction, datetime, entry_price, stop_loss, take_profit,
       risk_amount, position_size, setup_name, htf_trend, entry_reason, confirmations,
       sl_moved, manual_interference, exit_price, pnl, r_multiple, outcome,
-      followed_rules, biggest_mistake, would_take_again, is_flagged
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      followed_rules, biggest_mistake, would_take_again, is_flagged, tags
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
     const params = [
@@ -167,7 +170,8 @@ router.post('/', (req, res) => {
         followed_rules ? 1 : 0,
         biggest_mistake || '',
         would_take_again ? 1 : 0,
-        is_flagged
+        is_flagged,
+        JSON.stringify(tags || [])
     ];
 
     db.run(query, params, function (err) {
@@ -203,7 +207,8 @@ router.put('/:id', (req, res) => {
         exit_price,
         followed_rules,
         biggest_mistake,
-        would_take_again
+        would_take_again,
+        tags
     } = req.body;
 
     // Calculate P&L and R-Multiple if exit price is provided
@@ -234,7 +239,7 @@ router.put('/:id', (req, res) => {
       setup_name = ?, htf_trend = ?, entry_reason = ?, confirmations = ?,
       sl_moved = ?, manual_interference = ?, exit_price = ?, pnl = ?,
       r_multiple = ?, outcome = ?, followed_rules = ?, biggest_mistake = ?,
-      would_take_again = ?, is_flagged = ?
+      would_take_again = ?, is_flagged = ?, tags = ?
     WHERE id = ?
   `;
 
@@ -243,7 +248,8 @@ router.put('/:id', (req, res) => {
         risk_amount, position_size, setup_name, htf_trend, entry_reason,
         JSON.stringify(confirmations || []), sl_moved ? 1 : 0, manual_interference ? 1 : 0,
         exit_price, pnl, r_multiple, outcome, followed_rules ? 1 : 0,
-        biggest_mistake || '', would_take_again ? 1 : 0, is_flagged, req.params.id
+        biggest_mistake || '', would_take_again ? 1 : 0, is_flagged,
+        JSON.stringify(tags || []), req.params.id
     ];
 
     db.run(query, params, function (err) {

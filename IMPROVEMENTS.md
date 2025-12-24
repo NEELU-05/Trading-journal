@@ -39,6 +39,21 @@ This document tracks the enhancements, bug fixes, and architectural improvements
 *   **Styling**: Confirmed consistency of Tailwind CSS classes for a "Trader-focused" dark mode theme (Slate/Gray colors with Red/Green/Blue accents).
 *   **Responsive Design**: Confirmed the Dashboard, Forms, and Stats panels are responsive (using `grid-cols-1 md:grid-cols-2` etc.).
 
+### 5. Data Import/Export
+*   **CSV Import Wizard**: Implemented drag-and-drop CSV import with intelligent column mapping and interactive data completion wizard.
+    *   Automatically maps common broker export columns (Symbol, Price, Quantity, etc.)
+    *   Guides users through filling missing required fields
+    *   "Apply to All" feature for batch data entry
+    *   Progress tracking during import
+
+### 6. Advanced Analytics
+*   **Tagging System**: Added psychological tagging system for trades.
+    *   Tags stored as JSON array in database
+    *   Tag input with keyboard shortcuts (Enter/Comma to add)
+    *   Visual tag chips in form and table
+    *   Common tags: FOMO, REVENGE, A+, etc.
+    *   Enables filtering and analysis by psychological patterns
+
 ---
 
 ## 🔮 Future Roadmap (Planned)
@@ -57,4 +72,5 @@ This document tracks the enhancements, bug fixes, and architectural improvements
 
 4.  **Advanced Analytics**:
     *   Add "Calendar View" to see trades by day/month.
-    *   Add "Tagging" system (e.g., "FOMO", "Revenge Trade") for better psychological analysis.
+    *   (Completed) Add "Tagging" system (e.g., "FOMO", "Revenge Trade") for better psychological analysis.
+    *   Add tag-based filtering and analytics (e.g., "Show all FOMO trades", "Win rate by tag").

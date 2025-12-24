@@ -133,11 +133,19 @@ function initializeSqlite() {
       biggest_mistake TEXT,
       would_take_again INTEGER NOT NULL DEFAULT 1,
       is_flagged INTEGER NOT NULL DEFAULT 0,
+      tags TEXT,
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     )
   `, (err) => {
     if (err) console.error('Error creating trades table:', err.message);
-    else console.log('Trades table ready (SQLite)');
+    else {
+      console.log('Trades table ready (SQLite)');
+      // Simple migration for tags column
+      db.run("ALTER TABLE trades ADD COLUMN tags TEXT", (err) => {
+        // Ignore error if column already exists
+        if (!err) console.log("Added tags column to SQLite");
+      });
+    }
   });
 
   db.run(`
@@ -183,6 +191,7 @@ function initializePostgres() {
       biggest_mistake TEXT,
       would_take_again INTEGER NOT NULL DEFAULT 1,
       is_flagged INTEGER NOT NULL DEFAULT 0,
+      tags TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;
@@ -195,7 +204,12 @@ function initializePostgres() {
   `;
 
   db.query(createTrades)
-    .then(() => console.log('Trades table ready (PostgreSQL)'))
+    .then(() => {
+      console.log('Trades table ready (PostgreSQL)');
+      // Simple migration for tags column
+      db.query("ALTER TABLE trades ADD COLUMN IF NOT EXISTS tags TEXT")
+        .catch(e => console.log("Tags column check/add (PG):", e.message));
+    })
     .catch(err => console.error('Error creating trades table:', err.stack));
 
   db.query(createSetups)
