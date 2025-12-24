@@ -69,11 +69,13 @@ function Dashboard() {
                 {/* Journal Table */}
                 <JournalTable key={`table-${refreshKey}`} onRefresh={handleRefresh} />
 
-                <CsvImportModal
-                    isOpen={showImport}
-                    onClose={handleImportClose}
-                    onImport={handleImportTrade}
-                />
+                {showImport && (
+                    <CsvImportModal
+                        isOpen={showImport}
+                        onClose={handleImportClose}
+                        onImport={handleImportTrade}
+                    />
+                )}
             </div>
         </div>
     );

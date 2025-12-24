@@ -52,16 +52,7 @@ const CsvImportModal = ({ isOpen, onClose, onImport }) => { // Removed setups pr
         if (isOpen) fetchSetups();
     }, [isOpen]);
 
-    // Reset state when opening
-    useEffect(() => {
-        if (isOpen) {
-            setStep('upload');
-            setRawRows([]);
-            setProcessedTrades([]);
-            setCurrentFixIndex(0);
-            setImportProgress(0);
-        }
-    }, [isOpen]);
+    // Reset state when opening: Handled by parent conditionally rendering or key changing
 
     const isValid = useCallback((trade) => {
         return REQUIRED_FIELDS.every(field => {
@@ -171,12 +162,10 @@ const CsvImportModal = ({ isOpen, onClose, onImport }) => { // Removed setups pr
 
     const handleImport = async () => {
         setStep('importing');
-        let successCount = 0;
 
         for (let i = 0; i < processedTrades.length; i++) {
             try {
                 await onImport(processedTrades[i]);
-                successCount++;
                 setImportProgress(((i + 1) / processedTrades.length) * 100);
             } catch (e) {
                 console.error("Import failed for row", i, e);
