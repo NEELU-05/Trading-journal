@@ -32,6 +32,7 @@ This document tracks the enhancements, bug fixes, and architectural improvements
 ### 3. Backend & Database
 *   **Database Resilience**: Added warning documentation about SQLite ephemeral storage on Render's free tier.
 *   **API Structure**: Verified `trades.js` routes for CRUD operations and statistics calculation (Win Rate, Avg R, Best/Worst Setup).
+*   **PostgreSQL Support**: Implemented dual-database support. The backend now automatically uses **PostgreSQL** if `DATABASE_URL` is present (for production) and falls back to **SQLite** for local development. This ensures data persistence on Render.
 
 ### 4. UI/UX Refinements
 *   **Styling**: Confirmed consistency of Tailwind CSS classes for a "Trader-focused" dark mode theme (Slate/Gray colors with Red/Green/Blue accents).
@@ -41,9 +42,10 @@ This document tracks the enhancements, bug fixes, and architectural improvements
 
 ## 🔮 Future Roadmap (Planned)
 
+
 1.  **Data Persistence**:
-    *   Migrate from SQLite to **PostgreSQL** (Render offers a free tier) to prevent data loss on server restarts.
-    *   Alternatively, implement a "Export to JSON/CSV" feature for manual backups.
+    *   (Completed) Migrate to PostgreSQL support.
+    *   Implement "Export to JSON/CSV" feature for manual local backups.
 
 2.  **Authentication**:
     *   Add user login/signup (JWT or simple password protection) so the journal is private when deployed publicly.

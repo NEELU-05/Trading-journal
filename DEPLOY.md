@@ -60,6 +60,21 @@ git push -u origin main
    - `PORT` = `10000` (Render provides this automatically)
 
 6. Click **"Create Web Service"**
+    
+    ### 3. Add a Database (PostgreSQL)
+
+    Since Render's free tier has ephemeral files (deletes files on restart), we use a PostgreSQL database for persistent storage.
+
+    1. In Render Dashboard, click **"New +"** → **"PostgreSQL"**.
+    2. Name: `trading-journal-db`
+    3. Plan: **Free**
+    4. Click **"Create Database"**.
+    5. Once created, copy the **"Internal Database URL"**.
+    6. Go back to your `trading-journal` Web Service.
+    7. Go to **"Environment"** tab.
+    8. Add Environment Variable:
+       - Key: `DATABASE_URL`
+       - Value: (Paste the Internal Database URL)
 
 ### 3. Wait for Deployment
 
